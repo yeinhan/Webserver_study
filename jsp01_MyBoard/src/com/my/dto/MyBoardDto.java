@@ -19,6 +19,14 @@ public class MyBoardDto {
 	}
 	
 	
+	public MyBoardDto(int myno, String mytitle, String mycontent) {
+		super();
+		this.myno = myno;
+		this.mytitle = mytitle;
+		this.mycontent = mycontent;
+	}
+
+
 	public MyBoardDto(String myname, String mytitle, String mycontent) {
 		super();
 		this.myname = myname;

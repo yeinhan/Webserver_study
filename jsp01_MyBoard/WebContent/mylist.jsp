@@ -48,10 +48,10 @@
 	<tr>
 		<td><%=list.get(i).getMyno() %></td>
 		<td><%=list.get(i).getMyname() %></td>
-		<td><%=list.get(i).getMytitle() %></td>
+		<td><a href="selectone.jsp?myno=<%=list.get(i).getMyno() %>" ><%=list.get(i).getMytitle() %></a></td>
 		<td><%=list.get(i).getMydate() %></td>
-		<td><a>수정</a></td>
-		<td><a>삭제</a></td>
+		<td><a href="myupdate.jsp?myno=<%=list.get(i).getMyno() %>">수정</a></td>
+		<td><a href="mydelete.jsp?myno=<%=list.get(i).getMyno() %>">삭제</a></td>
 	</tr>
 <%
 	//java code

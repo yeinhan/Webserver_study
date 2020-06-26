@@ -110,4 +110,142 @@ public class MyBoardDao {
 		
 		return res;
 	}
+	public MyBoardDto selectOne(int myno) {
+		try {
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","KH","KH");
+			System.out.println(("02. 계정연결"));
+		} catch (SQLException e) {
+			System.out.println("02. 계정 연결 실패");
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		MyBoardDto res = null;
+		String sql = "SELECT * FROM MYBOARD WHERE MYNO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, myno);
+			System.out.println("03. query 준비: "+sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				res = new MyBoardDto();
+				res.setMyno(rs.getInt(1));
+				res.setMyname(rs.getString(2));
+				res.setMytitle(rs.getString(3));
+				res.setMycontent(rs.getString(4));
+				res.setMydate(rs.getDate(5));
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 오류");
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstm.close();
+				con.close();
+				System.out.println("05. db종료");
+			} catch (SQLException e) {
+				
+				System.out.println("05. db종료 실패");
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return res;
+	}
+	
+	
+	//삭제
+	public int delete(int myno) {
+		try {
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","KH","KH");
+			System.out.println("02. 계정연결");
+		} catch (SQLException e) {
+			System.out.println("02. 계정 연결 실패");
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstm = null;
+		int res= 0;
+		String sql = "DELETE FROM MYBOARD WHERE MYNO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, myno);
+			System.out.println("03. query 준비:" +sql);
+			
+			res= pstm.executeUpdate();
+			System.out.println("04. query 준비 및 싱행");
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			try {
+				pstm.close();
+				con.close();
+				System.out.println("05. db 종료");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("05. db 종료 오류");
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return res;
+	}
+	
+	//수정
+	public int update(MyBoardDto dto) {
+		try {
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","KH","KH");
+			System.out.println("02.계정연결");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("02. 계정 연결 실패");
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstm = null;
+		int res = 0;
+		String sql = "UPDATE MYBOARD SET MYTITLE=?, MYCONTENT=?" + " WHERE MYNO=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getMytitle());
+			pstm.setString(2, dto.getMycontent());
+			pstm.setInt(3,dto.getMyno());
+			System.out.println("03.query 준비: "+sql);
+			
+			res= pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("3/4 단계 오류");
+			e.printStackTrace();
+		}finally {
+			try {
+				pstm.close();
+				con.close();
+				System.out.println("05. db 종료");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("05. db 종료 오류");
+				e.printStackTrace();
+			}
+		}
+		
+		return res;
+	}
 }
