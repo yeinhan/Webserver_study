@@ -11,18 +11,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+	function allChk(bool){
+		var chks = document.getElementsByName("chk");
+		for(var i=0; i<chks.length; i++){
+			chks[i].checked = bool;
+		}
+	}
+	
+	//체크를 하나도 안하면 submit 이벤트 취소
+	$(function(){
+		$('#muldelform').submit(function(){
+			if($('#muldelform input:checked').length == 0){
+				alert("하나 이상 체크 해주세요!");
+				return false;
+			}
+		})
+	})
+</script>
+</head>
+<body>
 <%
 	MDBoardDao dao = new MDBoardDao();
 	List<MDBoardDto> list = dao.selectAll();
 %>
 
 
-</head>
-<body>
 <%@ include file="./form/header.jsp" %>
 
 	<h1>L I S T</h1>
-	<form action="">
+	<form action="muldel.jsp" method="post" id="muldelform">
 		<table border="1">
 			<col width="30px">
 			<col width="50px">
@@ -30,7 +49,7 @@
 			<col width="300px">
 			<col width="100px">
 			<tr>
-				<th><input type="checkbox" name="all"></th>
+				<th><input type="checkbox" name="all" onclick="allChk(this.checked);"></th>
 				<th>NO</th>
 				<th>WRITER</th>
 				<th>TITLE</th>

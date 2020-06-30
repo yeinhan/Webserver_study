@@ -33,6 +33,12 @@ CREATE TABLE MDBOARD(
 	}
 	
 	
+	public MDBoardDto(int seq, String title, String content) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.content = content;
+	}
 	public MDBoardDto(String writer, String title, String content) {
 		super();
 		this.writer = writer;

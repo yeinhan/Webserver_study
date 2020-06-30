@@ -62,7 +62,7 @@
 			<tr>
 				<td colspan="2">
 					<input type="button" value="수정" onclick="updateformView();">
-					<input type="button" value="삭제">
+					<input type="button" value="삭제" onclick="location.href='boarddelete.jsp?seq=<%=dto.getSeq() %>'">
 					<input type="button" value="목록" onclick="location.href='boardlist.jsp'">
 				</td>
 			</tr>
