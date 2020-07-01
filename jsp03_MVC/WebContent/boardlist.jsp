@@ -79,7 +79,7 @@
 			<tr>
 				<td colspan="5">
 					<input type="submit" value="삭제">
-					<input type="button" onclick="" value="글쓰기">
+					<input type="button" value="글쓰기" onclick="location.href='mycontroller.jsp?command=boardinsertform'">
 				</td>
 			</tr>
 		</table>
