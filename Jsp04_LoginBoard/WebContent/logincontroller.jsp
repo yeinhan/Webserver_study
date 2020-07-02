@@ -45,13 +45,90 @@
 			request.getServletContext() 메서드사용하여 애플리케션 객체를 얻을 수 있다.
 		
 		*/	
+			if(dto.getMyrole().equals("ADMIN")){
+				response.sendRedirect("adminmain.jsp");
+				
+				
+			}else if(dto.getMyrole().equals("USER")){
+				response.sendRedirect("usermain.jsp");
+			}
 			
 			
+		}else{	//로그인 실패
 			
+		
+%>
+
+	<script type="text/javascript">
+
+	alert("login 실패");
+	location.href="index.jsp"
+</script>
+
+<%
+
 		}
+		
+	}else if(command.equals("logout")){
+		session.invalidate();	//세선 정보 삭제
+		response.sendRedirect("index.jsp");
+		
+	}else if(command.equals("userlistall")){
+		List<MyMemberDto> list = dao.selectAll();
+		request.setAttribute("list", list);
+		pageContext.forward("userlistall.jsp");
+		
+	}else if(command.equals("userlistenabled")){
+		List<MyMemberDto> list = dao.selectEnabled();
+		request.setAttribute("list", list);
+		pageContext.forward("userlistenabled.jsp");
+		
+	}else if(command.equals("updateroleform")){
+		int myno = Integer.parseInt(request.getParameter("myno"));
+		MyMemberDto dto = dao.selectUser(myno);
+		
+		request.setAttribute("selectone", dto);
+		pageContext.forward("updateroleform.jsp");
+		
+	}else if(command.equals("updaterole")){
+		int myno = Integer.parseInt(request.getParameter("myno"));
+		String myrole= request.getParameter("myrole");
+		
+		int res = dao.updateRole(myno, myrole);
+		if(res>0){
+					
+%>
+	<script type="text/javascript">
+		alert("등급 변경 성공");
+		location.href="logincontroller.jsp?command=userlistenabled";
+	</script>
+<%
+			
+		} else{
+			
+%>	
+	<script type="text/javascript">
+		alert("등급 변경 실패");
+		location.href="logincontroller.jsp?command=updateroleform&myno=<%=myno%>";
+	</script>	
+<%
+		}	
+	
+	}else if(command.equals("registform")){
+		response.sendRedirect("registform.jsp");
+		
+	}else if(command.equals("idchk")){
+		String myid=request.getParameter("id");
+		String res = dao.idChk(myid);
+		boolean idnotused = true;
+		
+		if(res!=null){	//db에 아이디가 존재한다.
+			idnotused= false;
+		
+		}
+		
+		response.sendRedirect("idchk.jsp?idnotused=" + idnotused);
 	}
-	
-	
 	
 	
 	
