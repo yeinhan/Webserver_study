@@ -20,6 +20,21 @@ public class MyMVCDto {
 		this.content = content;
 		this.regdate = regdate;
 	}
+	
+	public MyMVCDto(String writer, String title, String content) {
+		super();
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+	}
+	
+	//글 수정
+	public MyMVCDto(int seq, String title, String content) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.content = content;
+	}
 	public int getSeq() {
 		return seq;
 	}

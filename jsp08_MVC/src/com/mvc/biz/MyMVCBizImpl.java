@@ -16,21 +16,21 @@ public class MyMVCBizImpl implements MyMVCBiz {
 	}
 
 	@Override
-	public MyMVCDto select(MyMVCDto dto) {
+	public MyMVCDto selectOne(int seq) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.selectOne(seq);
 	}
 
 	@Override
 	public boolean insert(MyMVCDto dto) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return dao.insert(dto);
 	}
 
 	@Override
 	public boolean update(MyMVCDto dto) {
 		// TODO Auto-generated method stub
-		return false;
+		return dao.update(dto);
 	}
 
 	@Override
